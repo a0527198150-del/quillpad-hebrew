@@ -3,9 +3,10 @@ $ProgressPreference = 'SilentlyContinue'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location -LiteralPath $Root
 $Source = Join-Path $Root 'quillpad-source'
-$Output = Join-Path $Root 'Quillpad-Hebrew-debug.apk'
+$Output = Join-Path (Get-DownloadsDirectory) 'Quillpad-Hebrew-release.apk'
 $Translation = Join-Path $Root 'translation\app\src\main\res\values-he\strings.xml'
 $Utf8 = New-Object System.Text.UTF8Encoding($false)
+. (Join-Path $Root 'release-signing.ps1')
 
 function Save-Utf8File([string]$FilePath, [string]$Value) {
   [System.IO.File]::WriteAllText($FilePath, $Value, $Utf8)
@@ -159,17 +160,18 @@ try {
     $env:JAVA_TOOL_OPTIONS = (@($env:JAVA_TOOL_OPTIONS, $TlsOptions) | Where-Object { $_ }) -join ' '
   }
 
-  Write-Host '[3/4] Building APK...'
+  Initialize-ReleaseSigning -JdkRoot $env:JAVA_HOME
+  Write-Host '[3/4] Building signed Release APK...'
   Push-Location -LiteralPath $Source
   try {
-    & (Join-Path $Source 'gradlew.bat') ':app:assembleDebug' '--no-daemon'
+    & (Join-Path $Source 'gradlew.bat') ':app:assembleRelease' '--no-daemon'
     $BuildExit = $LASTEXITCODE
   } finally {
     Pop-Location
   }
   if ($BuildExit -ne 0) { throw ('Gradle build failed, exit code ' + $BuildExit) }
 
-  $Apk = Join-Path $Source 'app\build\outputs\apk\debug\app-debug.apk'
+  $Apk = Join-Path $Source 'app\build\outputs\apk\release\app-release.apk'
   if (-not (Test-Path -LiteralPath $Apk -PathType Leaf)) { throw 'Gradle completed but APK was not found.' }
   Copy-Item -LiteralPath $Apk -Destination $Output -Force
   Write-Host ('[4/4] APK created: ' + $Output) -ForegroundColor Green
