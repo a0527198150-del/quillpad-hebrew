@@ -58,10 +58,10 @@ try {
     $JavaHomes.Add((Split-Path -Parent (Split-Path -Parent $ExistingJava.Source)))
   }
   $FoundJava = $false
-  foreach ($Home in ($JavaHomes | Select-Object -Unique)) {
-    if ($Home -and (Test-Path -LiteralPath (Join-Path $Home 'bin\java.exe') -PathType Leaf)) {
-      $env:JAVA_HOME = $Home
-      $env:Path = (Join-Path $Home 'bin') + ';' + $env:Path
+  foreach ($JavaHomeCandidate in ($JavaHomes | Select-Object -Unique)) {
+    if ($JavaHomeCandidate -and (Test-Path -LiteralPath (Join-Path $JavaHomeCandidate 'bin\java.exe') -PathType Leaf)) {
+      $env:JAVA_HOME = $JavaHomeCandidate
+      $env:Path = (Join-Path $JavaHomeCandidate 'bin') + ';' + $env:Path
       $FoundJava = $true
       break
     }
