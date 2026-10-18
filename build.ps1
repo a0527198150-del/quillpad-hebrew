@@ -3,10 +3,10 @@ $ProgressPreference = 'SilentlyContinue'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location -LiteralPath $Root
 $Source = Join-Path $Root 'quillpad-source'
-$Output = Join-Path (Get-DownloadsDirectory) 'Quillpad-Hebrew-release.apk'
 $Translation = Join-Path $Root 'translation\app\src\main\res\values-he\strings.xml'
 $Utf8 = New-Object System.Text.UTF8Encoding($false)
 . (Join-Path $Root 'release-signing.ps1')
+$Output = Join-Path (Get-DownloadsDirectory) 'Quillpad-Hebrew-release.apk'
 
 function Save-Utf8File([string]$FilePath, [string]$Value) {
   [System.IO.File]::WriteAllText($FilePath, $Value, $Utf8)
