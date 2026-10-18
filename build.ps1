@@ -80,8 +80,98 @@ try {
     }
   }
   if (-not $FoundJava) {
-    throw 'Java not found. Verify that Android Studio JBR or JDK 17+ is installed. Typical path: C:\Program Files\Android\Android Studio\jbr.'
+    # Check additional JDK managers and IDE locations before any download.
+    $ExtraDirectories = @(
+      (Join-Path $env:USERPROFILE '.jdks'),
+      (Join-Path $env:USERPROFILE '.gradle\jdks'),
+      (Join-Path $env:USERPROFILE 'scoop\apps'),
+      (Join-Path $env:LOCALAPPDATA 'Programs'),
+      (Join-Path $env:ProgramFiles 'JetBrains'),
+      (Join-Path $env:ProgramFiles 'Android'),
+      (Join-Path $env:ProgramFiles 'Microsoft'),
+      (Join-Path $env:ProgramFiles 'Eclipse Adoptium')
+    )
+    foreach ($SearchRoot in $ExtraDirectories) {
+      if ($FoundJava) { break }
+      if (-not $SearchRoot -or -not (Test-Path -LiteralPath $SearchRoot -PathType Container)) { continue }
+      Write-Host ('Looking for Java in ' + $SearchRoot)
+      foreach ($JavaFile in (Get-ChildItem -LiteralPath $SearchRoot -Filter java.exe -File -Recurse -ErrorAction SilentlyContinue)) {
+        if ($JavaFile.Directory.Name -ne 'bin') { continue }
+        $JavaHomeCandidate = $JavaFile.Directory.Parent.FullName
+        if (-not (Test-Path -LiteralPath (Join-Path $JavaHomeCandidate 'bin\javac.exe'))) { continue }
+        $env:JAVA_HOME = $JavaHomeCandidate
+        $env:Path = (Join-Path $JavaHomeCandidate 'bin') + ';' + $env:Path
+        $FoundJava = $true
+        break
+      }
+    }
   }
+  if (-not $FoundJava) {
+    # GitHub release assets are a fallback if Java is genuinely not installed.
+    # Use the official Eclipse Adoptium release, not an unverified mirror.
+    Write-Host 'No local JDK found. Downloading portable Eclipse Temurin JDK 17 (~190 MB) from GitHub...'
+    $CacheRoot = Join-Path $Root '.jdk-cache'
+    $ExtractRoot = Join-Path $CacheRoot 'extracted'
+    $CachedJdk = $null
+    if (Test-Path -LiteralPath $ExtractRoot -PathType Container) {
+      $CachedJdk = Get-ChildItem -LiteralPath $ExtractRoot -Directory -ErrorAction SilentlyContinue |
+        Where-Object { (Test-Path (Join-Path $_.FullName 'bin\java.exe')) -and (Test-Path (Join-Path $_.FullName 'bin\javac.exe')) } |
+        Select-Object -First 1
+    }
+    if (-not $CachedJdk) {
+      New-Item -ItemType Directory -Force -Path $CacheRoot | Out-Null
+      try {
+        $Release = Invoke-RestMethod -Uri 'https://api.github.com/repos/adoptium/temurin17-binaries/releases/latest' -Headers @{'User-Agent'='Quillpad-Hebrew-Builder';'Accept'='application/vnd.github+json'} -TimeoutSec 90
+        $ArchiveAsset = $Release.assets | Where-Object { $_.name -match '^OpenJDK17U-jdk_x64_windows_hotspot_.*\.zip
+
+  Push-Location $Source
+  try {
+    & (Join-Path $Source 'gradlew.bat') ':app:assembleDebug' '--no-daemon'
+    $ExitCode = $LASTEXITCODE
+  } finally { Pop-Location }
+  if ($ExitCode -ne 0) { throw "Gradle failed with exit code $ExitCode" }
+  $Apk = Join-Path $Source 'app\build\outputs\apk\debug\app-debug.apk'
+  if (-not (Test-Path $Apk)) { throw 'Gradle ended without an APK.' }
+  Copy-Item $Apk $Output -Force
+  Write-Host '[4/4] Build successful:' $Output -ForegroundColor Green
+  exit 0
+} catch {
+  Write-Host 'BUILD FAILED:' $_.Exception.Message -ForegroundColor Red
+  exit 1
+}
+ } | Select-Object -First 1
+        if (-not $ArchiveAsset) { throw 'Windows x64 JDK ZIP was not listed in the official GitHub release.' }
+        $HashAsset = $Release.assets | Where-Object { $_.name -eq ($ArchiveAsset.name + '.sha256.txt') } | Select-Object -First 1
+        if (-not $HashAsset) { throw 'SHA256 checksum file not found in the release.' }
+        $ChecksumResponse = Invoke-WebRequest -Uri $HashAsset.browser_download_url -UseBasicParsing -TimeoutSec 120
+        $ExpectedHash = ([regex]::Match([string]$ChecksumResponse.Content, '[0-9a-fA-F]{64}')).Value
+        if (-not $ExpectedHash) { throw 'Invalid SHA256 checksum downloaded.' }
+        $ArchivePath = Join-Path $CacheRoot $ArchiveAsset.name
+        if (-not (Test-Path -LiteralPath $ArchivePath -PathType Leaf)) {
+          Write-Host ('Downloading: ' + $ArchiveAsset.name)
+          Invoke-WebRequest -Uri $ArchiveAsset.browser_download_url -OutFile $ArchivePath -UseBasicParsing -TimeoutSec 3600
+        }
+        $ActualHash = (Get-FileHash -LiteralPath $ArchivePath -Algorithm SHA256).Hash
+        if ($ActualHash -ine $ExpectedHash) {
+          Remove-Item -LiteralPath $ArchivePath -Force -ErrorAction SilentlyContinue
+          throw 'JDK archive SHA256 verification failed. Remove partial download and retry.'
+        }
+        Write-Host 'JDK checksum verified. Extracting...'
+        New-Item -ItemType Directory -Force -Path $ExtractRoot | Out-Null
+        Expand-Archive -LiteralPath $ArchivePath -DestinationPath $ExtractRoot -Force
+        $CachedJdk = Get-ChildItem -LiteralPath $ExtractRoot -Directory |
+          Where-Object { (Test-Path (Join-Path $_.FullName 'bin\java.exe')) -and (Test-Path (Join-Path $_.FullName 'bin\javac.exe')) } |
+          Select-Object -First 1
+        if (-not $CachedJdk) { throw 'Java executable not found inside the extracted JDK.' }
+      } catch {
+        throw ('Unable to provision JDK from GitHub: ' + $_.Exception.Message + '. NetFree may be blocking GitHub release assets even if repository pages open.')
+      }
+    }
+    $env:JAVA_HOME = $CachedJdk.FullName
+    $env:Path = (Join-Path $env:JAVA_HOME 'bin') + ';' + $env:Path
+    $FoundJava = $true
+  }
+  if (-not $FoundJava) { throw 'Could not locate or download Java JDK 17.' }
   Write-Host ('Using Java from: ' + $env:JAVA_HOME)
 
   Push-Location $Source
