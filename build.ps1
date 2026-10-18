@@ -32,7 +32,58 @@ try {
   }
   $Sdk = @($env:ANDROID_SDK_ROOT,$env:ANDROID_HOME,(Join-Path $env:LOCALAPPDATA 'Android\Sdk')) | Where-Object { $_ -and (Test-Path (Join-Path $_ 'platforms')) } | Select-Object -First 1
   if ($Sdk) { SaveUtf8 (Join-Path $Source 'local.properties') ('sdk.dir=' + $Sdk.Replace('\','/') + "`n") }
-  Write-Host '[3/4] Building APK...'
+  # Android Studio includes a bundled JDK (jbr), which is not always on PATH.
+  # Locate a local Java installation automatically before running Gradle.
+  Write-Host '[3/4] Locating Java and building APK...'
+  $JavaHomes = New-Object System.Collections.Generic.List[string]
+  if ($env:JAVA_HOME) { $JavaHomes.Add($env:JAVA_HOME) }
+  $ProgramFilesX86 = [Environment]::GetEnvironmentVariable('ProgramFiles(x86)')
+  foreach ($Base in @($env:ProgramFiles, $ProgramFilesX86, $env:LOCALAPPDATA)) {
+    if (-not $Base) { continue }
+    foreach ($Rel in @('Android\Android Studio\jbr', 'Android\Android Studio\jre', 'Programs\Android Studio\jbr', 'Programs\Android Studio\jre')) {
+      $JavaHomes.Add((Join-Path $Base $Rel))
+    }
+    foreach ($Rel in @('Java', 'Eclipse Adoptium', 'Microsoft', 'Amazon Corretto', 'BellSoft', 'Zulu', 'Programs\Java', 'Programs\Eclipse Adoptium')) {
+      $Parent = Join-Path $Base $Rel
+      if (Test-Path -LiteralPath $Parent -PathType Container) {
+        foreach ($Dir in (Get-ChildItem -LiteralPath $Parent -Directory -ErrorAction SilentlyContinue)) {
+          $JavaHomes.Add($Dir.FullName)
+          $JavaHomes.Add((Join-Path $Dir.FullName 'jbr'))
+        }
+      }
+    }
+  }
+  $ExistingJava = Get-Command 'java.exe' -ErrorAction SilentlyContinue
+  if ($ExistingJava -and $ExistingJava.Source) {
+    $JavaHomes.Add((Split-Path -Parent (Split-Path -Parent $ExistingJava.Source)))
+  }
+  $FoundJava = $false
+  foreach ($Home in ($JavaHomes | Select-Object -Unique)) {
+    if ($Home -and (Test-Path -LiteralPath (Join-Path $Home 'bin\java.exe') -PathType Leaf)) {
+      $env:JAVA_HOME = $Home
+      $env:Path = (Join-Path $Home 'bin') + ';' + $env:Path
+      $FoundJava = $true
+      break
+    }
+  }
+  if (-not $FoundJava) {
+    $Toolbox = Join-Path $env:LOCALAPPDATA 'JetBrains\Toolbox\apps\AndroidStudio'
+    if (Test-Path -LiteralPath $Toolbox -PathType Container) {
+      foreach ($JavaFile in (Get-ChildItem -LiteralPath $Toolbox -Filter java.exe -Recurse -File -ErrorAction SilentlyContinue)) {
+        if ($JavaFile.Directory.Name -eq 'bin') {
+          $env:JAVA_HOME = $JavaFile.Directory.Parent.FullName
+          $env:Path = (Join-Path $env:JAVA_HOME 'bin') + ';' + $env:Path
+          $FoundJava = $true
+          break
+        }
+      }
+    }
+  }
+  if (-not $FoundJava) {
+    throw 'Java not found. Verify that Android Studio JBR or JDK 17+ is installed. Typical path: C:\Program Files\Android\Android Studio\jbr.'
+  }
+  Write-Host ('Using Java from: ' + $env:JAVA_HOME)
+
   Push-Location $Source
   try {
     & (Join-Path $Source 'gradlew.bat') ':app:assembleDebug' '--no-daemon'
