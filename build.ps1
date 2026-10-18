@@ -102,6 +102,11 @@ try {
   $Dest = Join-Path $Source 'app\src\main\res\values-he'
   New-Item -ItemType Directory -Force -Path $Dest | Out-Null
   Copy-Item -LiteralPath $Translation -Destination (Join-Path $Dest 'strings.xml') -Force
+  # Keep Hebrew as the fallback language on English and other device locales.
+  $HebrewFallback = Join-Path $Root 'translation\app\src\main\res\values\strings.xml'
+  if (-not (Test-Path -LiteralPath $HebrewFallback -PathType Leaf)) { throw 'Missing Hebrew fallback strings.xml.' }
+  Copy-Item -LiteralPath $HebrewFallback -Destination (Join-Path $Source 'app\src\main\res\values\strings.xml') -Force
+  Write-Host '[2/4] Hebrew set as default resources for every device language.'
 
   $GradleFile = Join-Path $Source 'app\build.gradle.kts'
   $GradleText = [System.IO.File]::ReadAllText($GradleFile)
