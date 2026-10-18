@@ -1,0 +1,350 @@
+<resources>
+    <!-- Navigation drawer -->
+    <string name="nav_notes">פתקים</string>
+    <string name="nav_archive">ארכיון</string>
+    <string name="nav_deleted">סל המחזור</string>
+    <string name="nav_settings">הגדרות</string>
+    <string name="nav_about">על האפליקציה</string>
+    <string name="nav_tags">תגיות</string>
+    <string name="nav_all_notes">כל הפתקים</string>
+    <string name="nav_notebooks">מחברות</string>
+    <string name="nav_your_notebooks">המחברות שלך</string>
+
+    <!-- Preferences -->
+    <!-- Preferences / General -->
+    <string name="preferences_header_general">כללי</string>
+    <string name="preferences_theme_mode">ערכת נושא</string>
+    <string name="preferences_theme_mode_dark">כהה</string>
+    <string name="preferences_theme_mode_light">בהירה</string>
+    <string name="preferences_theme_mode_system">לפי הגדרת המכשיר</string>
+
+    <string name="preferences_dark_theme_mode">ערכת נושא כהה</string>
+    <string name="preferences_theme_dark_mode_standard">רגיל</string>
+    <string name="preferences_theme_dark_mode_black">שחור</string>
+
+    <string name="preferences_color_scheme">ערכת צבעים</string>
+    <string name="preferences_color_scheme_blue">כחול</string>
+    <string name="preferences_color_scheme_pink">ורוד</string>
+    <string name="preferences_color_scheme_green">ירוק</string>
+    <string name="preferences_color_scheme_orange">כתום</string>
+    <string name="preferences_color_scheme_purple">סגול</string>
+    <string name="preferences_color_scheme_yellow">צהוב</string>
+    <string name="preferences_color_scheme_red">אדום</string>
+    <string name="preferences_color_scheme_teal">טורקיז</string>
+    <string name="preferences_color_scheme_cyan">תכלת</string>
+    <string name="preferences_color_scheme_brown">חום</string>
+    <string name="preferences_color_scheme_gray">אפור</string>
+    <string name="preferences_color_scheme_system">לפי הגדרת המכשיר</string>
+
+    <!-- Preferences / View -->
+    <string name="preferences_header_view">תצוגה</string>
+
+    <!-- Preferences / View / Notebook -->
+    <string name="preferences_header_view_notebook">מחברת</string>
+
+    <string name="preferences_layout_mode">פריסת תצוגה</string>
+    <string name="preferences_layout_mode_grid">רשת</string>
+    <string name="preferences_layout_mode_list">רשימה</string>
+
+    <string name="preferences_sort_method">מיון לפי</string>
+    <string name="preferences_sort_method_title_asc">כותרת (בסדר עולה)</string>
+    <string name="preferences_sort_method_title_desc">כותרת (בסדר יורד)</string>
+    <string name="preferences_sort_method_created_asc">תאריך יצירה (מהישן לחדש)</string>
+    <string name="preferences_sort_method_created_desc">תאריך יצירה (מהחדש לישן)</string>
+    <string name="preferences_sort_method_modified_asc">תאריך שינוי (מהישן לחדש)</string>
+    <string name="preferences_sort_method_modified_desc">תאריך שינוי (מהחדש לישן)</string>
+
+    <!-- Preferences / View / Note content -->
+    <string name="preferences_header_view_note_content">תוכן הפתק</string>
+
+    <string name="preferences_font_size">גודל הגופן בעריכה ובתצוגה</string>
+    <string name="preferences_font_size_default">ברירת מחדל</string>
+    <string name="preferences_font_size_ten" translatable="false">10</string>
+    <string name="preferences_font_size_fifteen" translatable="false">15</string>
+    <string name="preferences_font_size_twenty" translatable="false">20</string>
+    <string name="preferences_font_size_twentyfive" translatable="false">25</string>
+    <string name="preferences_font_size_thirty" translatable="false">30</string>
+    <string name="preferences_font_size_thirtyfive" translatable="false">35</string>
+    <string name="preferences_font_size_forty" translatable="false">40</string>
+    <string name="preferences_font_size_fortyfive" translatable="false">45</string>
+    <string name="preferences_font_size_fifty" translatable="false">50</string>
+
+    <string name="preferences_show_fab_change_mode">מיקום כפתור העריכה והתצוגה</string>
+    <string name="preferences_fab">כפתור צף</string>
+    <string name="preferences_top_bar">סרגל עליון</string>
+
+    <string name="preferences_default_editor_mode">מצב העורך כברירת מחדל</string>
+    <string name="preferences_default_editor_mode_view">מצב צפייה</string>
+    <string name="preferences_default_editor_mode_edit">מצב עריכה</string>
+    <string name="preferences_show_date">הצגת תאריך יצירה ושינוי</string>
+    <string name="preferences_date_format">תבנית תאריך</string>
+    <string name="preferences_time_format">תבנית שעה</string>
+
+    <!-- Preferences / Other -->
+    <string name="preferences_header_other">אחר</string>
+
+    <string name="preferences_open_media_in">פתיחת מדיה באמצעות</string>
+    <string name="preferences_open_media_in_internal">נגן פנימי</string>
+    <string name="preferences_open_media_in_external">נגן חיצוני</string>
+
+    <string name="preferences_group_notes_without_notebook">קיבוץ פתקים ללא מחברת</string>
+
+    <string name="preferences_move_checked_items">העברת פריטים מסומנים ולא מסומנים ברשימות</string>
+
+    <string name="preferences_note_deletion_time">מחיקת פתקים מסל המחזור</string>
+    <string name="preferences_note_deletion_time_instantly">מיד</string>
+    <string name="preferences_note_deletion_time_week">לאחר 7 ימים</string>
+    <string name="preferences_note_deletion_time_two_weeks">לאחר 14 ימים</string>
+    <string name="preferences_note_deletion_time_month">לאחר 30 ימים</string>
+
+    <!-- Preferences / Backup -->
+    <string name="preferences_header_backup">גיבוי</string>
+    <string name="preferences_create_backup">יצירת גיבוי</string>
+    <string name="preferences_create_backup_subtext">ייצוא כל הפתקים לקובץ גיבוי.</string>
+    <string name="preferences_restore">שחזור</string>
+    <string name="preferences_restore_subtext">טעינת פתקים מקובץ גיבוי.</string>
+    <string name="preferences_backup_strategy">אסטרטגיית גיבוי לקבצים מצורפים</string>
+    <string name="preferences_backup_strategy_include_files">גיבוי הכול</string>
+    <string name="preferences_backup_strategy_keep_info">גיבוי התיאור ונתיב הקובץ בלבד</string>
+    <string name="preferences_backup_strategy_keep_nothing">אין לגבות קבצים מצורפים</string>
+
+    <!-- Preferences / Syncing -->
+    <string name="preferences_header_syncing">סנכרון</string>
+    <string name="preferences_go_to_sync_settings">מעבר להגדרות הסנכרון</string>
+    <string name="preferences_currently_syncing_with">מסונכרן כעת עם %s</string>
+    <string name="preferences_currently_not_syncing">אין סנכרון פעיל</string>
+    <string name="preferences_cloud_service">שירות סנכרון</string>
+    <string name="preferences_cloud_service_disabled">מושבת</string>
+    <string name="preferences_cloud_service_nextcloud">Nextcloud</string>
+    <string name="preferences_nextcloud_limited_features">לתשומת ליבך: Nextcloud Notes אינו תומך בתגיות, בקבצים מצורפים, בתזכורות ובתכונות נוספות. יש להתקין את Nextcloud Notes בשרת לפני ההתחברות.</string>
+    <string name="preferences_nextcloud_account">חשבון Nextcloud</string>
+    <string name="preferences_nextcloud_instance_url">כתובת שרת Nextcloud</string>
+    <string name="preferences_nextcloud_set_your_credentials">הזנת פרטי ההתחברות</string>
+    <string name="preferences_nextcloud_set_server_url">הגדרת כתובת השרת</string>
+    <string name="preferences_file_storage_info">בחר תיקייה באחסון המקומי או אצל ספק ענן. כל הפתקים יישמרו כקובצי Markdown.</string>
+    <string name="preferences_file_storage_location">מיקום אחסון</string>
+    <string name="preferences_file_storage_select">בחירת מיקום אחסון</string>
+    <string name="preferences_sync_on_wifi">Wi-Fi</string>
+    <string name="preferences_sync_on_wifi_data">Wi-Fi או נתונים סלולריים</string>
+    <string name="preferences_sync_when_on">סנכרון באמצעות</string>
+    <string name="preferences_background_sync">סנכרון ברקע</string>
+    <string name="preferences_background_sync_enabled">מופעל</string>
+    <string name="preferences_background_sync_disabled">מושבת</string>
+    <string name="preferences_new_notes_synchronizable">ניתן לסנכרן פתקים חדשים</string>
+    <string name="preferences_trust_self_signed_certificate">מתן אמון באישור בחתימה עצמית</string>
+
+    <!-- About -->
+    <string name="about_version">גרסה</string>
+    <string name="about_website">אתר</string>
+    <string name="about_developer">מפתח</string>
+    <string name="about_contribute">תרומה לפיתוח</string>
+    <string name="about_support">תמיכה</string>
+    <string name="about_send_logs">שליחת יומני שגיאות</string>
+    <string name="about_send_logs_subtext">שליחת יומני האפליקציה למפתח לצורך בדיקה</string>
+    <string name="about_support_subtext">פיתוח ותחזוקה של מיזמי קוד פתוח דורשים זמן ואינם מניבים רווח.\nאפשר לתמוך במפתחים!</string>
+    <string name="about_libraries">ספריות</string>
+    <string name="about_libraries_subtext">הצגת ספריות צד שלישי ורישיונות.</string>
+
+
+    <!-- General -->
+    <string name="default_string">ברירת מחדל</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    <string name="ok">אישור</string>
+    <string name="indicator_notes_empty">הפתקים שלך יופיעו כאן.</string>
+    <string name="indicator_untitled">ללא כותרת</string>
+    <string name="hint_username">שם משתמש</string>
+    <string name="hint_password">סיסמה</string>
+    <string name="action_save">שמירה</string>
+    <string name="action_cancel">ביטול</string>
+    <string name="action_delete">מחיקה</string>
+    <string name="action_done">בוצע!</string>
+    <string name="action_delete_permanently">מחיקה לצמיתות</string>
+    <string name="action_select_all">בחירת הכול</string>
+    <string name="action_create_list">יצירת רשימה</string>
+    <string name="action_show_hidden_notes">הצגת פתקים מוסתרים</string>
+    <string name="action_unarchive">הוצאה מהארכיון</string>
+    <string name="action_export">ייצוא</string>
+    <string name="action_hide">הסתרה</string>
+    <string name="action_show">הצגה</string>
+    <string name="action_archive">העברה לארכיון</string>
+    <string name="action_change_mode">מעבר בין עריכה לצפייה</string>
+    <string name="action_pin">נעיצה</string>
+    <string name="action_unpin">ביטול נעיצה</string>
+    <string name="action_restore">שחזור</string>
+    <string name="action_share">שיתוף</string>
+    <string name="action_pin_unpin">נעיצה או ביטול נעיצה</string>
+    <string name="action_move_to">העברה אל…</string>
+    <string name="action_duplicate">שכפול</string>
+    <string name="action_select_more">בחירת פריטים נוספים…</string>
+    <string name="action_compact_preview">תצוגה מקדימה מצומצמת</string>
+    <string name="action_full_preview">תצוגה מקדימה מלאה</string>
+    <string name="action_screen_always_on">השארת המסך דולק</string>
+
+
+    <!-- Attachments -->
+    <string name="attachments_edit_description">עריכת תיאור</string>
+    <string name="attachments_hint_description">תיאור קובץ מצורף</string>
+    <string name="action_record_audio">הקלטת שמע</string>
+    <string name="indicator_recording">מקליט (%1$s)</string>
+    <string name="action_attach_files">צירוף קבצים</string>
+    <string name="action_take_photo">צילום תמונה</string>
+    <string name="indicator_recorded_clip">הקלטה</string>
+
+
+    <!-- Notebooks -->
+    <string name="default_notebook">אחר</string>
+    <string name="notebooks_new_notebook">מחברת חדשה</string>
+    <string name="notebooks_hint_name">שם המחברת</string>
+    <string name="notebooks_unassigned">ללא מחברת</string>
+    <string name="indicator_notebook_empty">אין לך מחברות.</string>
+    <string name="action_create_notebook">יצירת מחברת</string>
+    <string name="action_rename_notebook">שינוי שם המחברת</string>
+    <string name="action_new_notebook">מחברת חדשה</string>
+    <string name="indicator_notebook_already_exists">כבר קיימת מחברת בשם %1$s.</string>
+
+
+    <!-- Archive -->
+    <string name="indicator_archive_empty">הפתקים בארכיון יופיעו כאן.</string>
+
+
+    <!-- Deleted -->
+    <string name="action_empty_bin">ריקון סל המחזור</string>
+    <string name="empty_bin_warning_title">האם להמשיך?</string>
+    <string name="empty_bin_warning_text">כל הפתקים שנמחקו יאבדו.</string>
+    <string name="indicator_deleted_note_cannot_be_edited">לא ניתן לערוך פתקים בסל המחזור.</string>
+    <string name="indicator_deleted_empty">פתקים שנמחקו יופיעו כאן במשך %1$d ימים.</string>
+    <string name="indicator_bin_disabled">הפתקים מוגדרים למחיקה מיידית.\nניתן לשנות זאת בהגדרות.</string>
+    <string name="indicator_bin_forever">הפתקים מוגדרים לשמירה ללא הגבלת זמן.\nניתן לשנות זאת בהגדרות.</string>
+    <string name="indicator_deleted_notes_permanently">הפתקים נמחקו לצמיתות.</string>
+    <string name="indicator_deleted_note_permanently">הפתק נמחק לצמיתות.</string>
+
+
+    <!-- Reminders -->
+    <string name="reminders">תזכורות</string>
+    <string name="reminder">תזכורת</string>
+    <string name="reminders_hint_name">שם התזכורת</string>
+    <string name="action_set_date">בחירת תאריך</string>
+    <string name="action_set_time">בחירת שעה</string>
+    <string name="action_new_reminder">תזכורת חדשה</string>
+    <string name="notification_reminder_fired">יש לך תזכורת.</string>
+    <string name="indicator_cannot_set_past_reminder">לא ניתן להגדיר תזכורת לתאריך שכבר עבר</string>
+
+
+    <!-- Tags -->
+    <string name="action_new_tag">תגית חדשה</string>
+    <string name="tags_hint_name">שם התגית</string>
+    <string name="indicator_tags_empty">אין לך תגיות.</string>
+    <string name="action_rename_tag">שינוי שם התגית</string>
+    <string name="indicator_tag_already_exists">כבר קיימת תגית בשם %1$s.</string>
+
+
+    <!-- Search -->
+    <string name="search_hint">חיפוש…</string>
+    <string name="action_search">חיפוש</string>
+    <string name="indicator_search_empty">תוצאות החיפוש יופיעו כאן.</string>
+    <string name="indicator_no_results_found">לא נמצאו תוצאות.</string>
+
+
+    <!-- Editor -->
+    <string name="editor_hint_title">כותרת</string>
+    <string name="editor_hint_content">כתיבת פתק…</string>
+    <string name="action_add_task">משימה</string>
+    <string name="action_convert_to_note">המרה לפתק</string>
+    <string name="action_convert_to_list">המרה לרשימה</string>
+    <string name="action_do_not_sync">ללא סנכרון</string>
+    <string name="action_change_color">שינוי צבע</string>
+    <string name="action_enable_markdown">הפעלת Markdown</string>
+    <string name="action_disable_markdown">כיבוי Markdown</string>
+    <string name="action_enable_screen_always_on">השארת המסך דולק</string>
+    <string name="action_disable_screen_always_on">כיבוי השארת המסך דולק</string>
+    <string name="action_insert_bold_text">הוספת טקסט מודגש</string>
+    <string name="action_insert_italics">הוספת טקסט נטוי</string>
+    <string name="action_insert_strikethrough">הוספת טקסט עם קו חוצה</string>
+    <string name="action_insert_highlight">הוספת הדגשה</string>
+    <string name="action_insert_heading">הוספת כותרת</string>
+    <string name="action_insert_quote">הוספת ציטוט</string>
+    <string name="action_insert_code">הוספת קוד</string>
+    <string name="action_uncheck_all_tasks">ביטול סימון כל המשימות</string>
+    <string name="action_remove_all_checked_tasks">הסרת כל המשימות שסומנו</string>
+    <string name="indicator_note_date">נוצר בתאריך %1$s\nעודכן לאחרונה בתאריך %2$s</string>
+    <string name="indicator_restored_notes">הפתקים שוחזרו</string>
+    <string name="indicator_restored_note">הפתק שוחזר</string>
+    <string name="indicator_archived_notes">הפתקים הועברו לארכיון</string>
+    <string name="indicator_archive_note">הפתק הועבר לארכיון</string>
+    <string name="indicator_moved_notes_to_bin">הפתקים הועברו לסל המחזור</string>
+    <string name="indicator_moved_note_to_bin">הפתק הועבר לסל המחזור</string>
+    <string name="indicator_empty_note_discarded">פתק ריק הוסר</string>
+    <string name="action_insert_link">הוספת קישור</string>
+    <string name="action_insert">הוספה</string>
+    <string name="action_insert_table">הוספת טבלה</string>
+    <string name="message_invalid_number_rows_columns">מספר השורות או העמודות אינו תקין</string>
+    <string name="action_insert_image">הוספת תמונה</string>
+    <string name="hint_image_description">תיאור</string>
+    <string name="hint_image_path">נתיב התמונה</string>
+    <string name="hint_hyperlink_text">טקסט</string>
+    <string name="hint_hyperlink_url">כתובת קישור</string>
+    <string name="hint_number_columns">מספר עמודות</string>
+    <string name="hint_number_rows">מספר שורות</string>
+    <string name="message_cannot_preview_table">לא ניתן להציג תצוגה מקדימה של הטבלה.</string>
+
+    <!-- Backup / Restore -->
+    <string name="notification_backing_up">מגבה את הפתקים…</string>
+    <string name="notification_backup_complete">הגיבוי הושלם!</string>
+    <string name="notification_backup_failed">הגיבוי נכשל</string>
+    <string name="notification_restoring_notes">משחזר פתקים…</string>
+    <string name="notification_restore_complete">השחזור הושלם</string>
+    <string name="notification_restore_failed">השחזור נכשל</string>
+
+
+    <!-- Notification channels -->
+    <string name="notifications_channel_reminders">תזכורות</string>
+    <string name="notifications_channel_backups">גיבויים</string>
+    <string name="notifications_channel_playback">ניגון מדיה</string>
+
+    <!-- Syncing -->
+    <string name="message_not_valid_https">כתובת HTTPS אינה תקינה.</string>
+    <string name="indicator_nextcloud_currently_logged_in_as">מחובר כעת בתור <b>%s</b>.</string>
+    <string name="indicator_nextcloud_currently_not_logged_in">אינך מחובר כעת.</string>
+    <string name="action_nextcloud_authenticate">אימות</string>
+    <string name="indicator_offline_account">חשבון לא מקוון</string>
+    <string name="indicator_connecting">מתחבר…</string>
+    <string name="message_something_went_wrong">משהו השתבש.</string>
+    <string name="message_server_connection_failed">לא ניתן להתחבר לשרת. בדוק את כתובת השרת ואת החיבור לרשת.</string>
+    <string name="message_invalid_credentials">האימות מול השרת נכשל: פרטי ההתחברות שגויים.</string>
+    <string name="message_certificates_invalid">שגיאת אישור אבטחה. הפעל את האפשרות לתת אמון באישור בחתימה עצמית.</string>
+    <string name="message_logged_in_successfully">ההתחברות הצליחה!</string>
+    <string name="message_notes_not_installed">אפליקציית Notes אינה מותקנת ב־Nextcloud שלך.</string>
+    <string name="message_server_not_compatible">גרסת השרת אינה תואמת לאפליקציה.</string>
+    <string name="message_internet_not_available">אין חיבור לאינטרנט.</string>
+    <string name="message_credentials_cannot_be_blank">יש להזין פרטי התחברות.</string>
+    <string name="preference_nextcloud_clear_credentials">מחיקת פרטי ההתחברות וכתובת השרת</string>
+    <string name="notification_media_play_pause">ניגון או השהיה</string>
+    <string name="notification_media_stop">עצירה</string>
+
+    <!-- App shortcuts -->
+    <string name="shortcut_take_note">כתיבת פתק</string>
+    <string name="shortcut_make_list">יצירת רשימה</string>
+    <string name="never">לעולם לא</string>
+    <string name="preferences_header_view_tags">רשימת תגיות</string>
+    <string name="preferences_sort_tags_method">מיון תגיות לפי</string>
+    <string name="preferences_header_view_navdrawer">תפריט ניווט</string>
+    <string name="preferences_sort_navdrawer_method">מיון מחברות לפי</string>
+    <string name="continue_next">המשך</string>
+
+    <plurals name="more_items"><item quantity="one">ועוד פריט %d</item><item quantity="two">ועוד %d פריטים</item><item quantity="many">ועוד %d פריטים</item><item quantity="other">ועוד %d פריטים</item></plurals>
+
+    <plurals name="selected_notes"><item quantity="one">נבחר פתק אחד</item><item quantity="two">נבחרו שני פתקים</item><item quantity="many">נבחרו %d פתקים</item><item quantity="other">נבחרו %d פתקים</item></plurals>
+
+    <plurals name="selected_notebooks"><item quantity="one">נבחר מחברת אחד</item><item quantity="two">נבחרו שני מחברות</item><item quantity="many">נבחרו %d מחברות</item><item quantity="other">נבחרו %d מחברות</item></plurals>
+
+    <plurals name="selected_tags"><item quantity="one">נבחר תגית אחד</item><item quantity="two">נבחרו שני תגיות</item><item quantity="many">נבחרו %d תגיות</item><item quantity="other">נבחרו %d תגיות</item></plurals>
+    <string name="preferences_cloud_service_files">אחסון קבצים</string>
+    <string name="error_report_email" translatable="false">sixface@msn.com</string>
+    <!-- Widget Strings -->
+    <string name="widget_description">הצגת הפתקים האחרונים במסך הבית</string>
+    <string name="action_new_note">פתק חדש</string>
+    <string name="note_untitled">ללא כותרת</string>
+    <string name="tasks">משימות</string>
+    <string name="widget_no_pinned_notes">אין עדיין פתקים נעוצים. נעץ פתק כדי שיופיע כאן.</string>
+</resources>
