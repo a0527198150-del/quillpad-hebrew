@@ -128,6 +128,37 @@ try {
     throw 'No JDK was found. Java may be installed in a custom folder. Run: where /R C:\ java.exe  (and repeat for D: if needed), then send the path of bin\java.exe. Nothing needs to be installed yet.'
   }
 
+  # NetFree HTTPS interception requires a trusted CA in Java.
+  # Keep the original JDK truststore untouched by using a private temporary copy.
+  $NetFreeCertificate = Join-Path $env:ProgramData 'NetFree\CA\netfree-ca-last.crt'
+  if (Test-Path -LiteralPath $NetFreeCertificate -PathType Leaf) {
+    Write-Host '[3/4] Configuring NetFree CA for this build...'
+    $JdkTrustStore = Join-Path $env:JAVA_HOME 'lib\security\cacerts'
+    $KeytoolExe = Join-Path $env:JAVA_HOME 'bin\keytool.exe'
+    if (-not (Test-Path -LiteralPath $JdkTrustStore -PathType Leaf)) {
+      throw 'JDK truststore (lib\security\cacerts) could not be located.'
+    }
+    if (-not (Test-Path -LiteralPath $KeytoolExe -PathType Leaf)) {
+      throw 'JDK keytool.exe could not be located.'
+    }
+    $TlsDir = Join-Path $Root '.build-cache'
+    New-Item -ItemType Directory -Path $TlsDir -Force | Out-Null
+    $PrivateTrustStore = Join-Path $TlsDir 'cacerts'
+    Copy-Item -LiteralPath $JdkTrustStore -Destination $PrivateTrustStore -Force
+    & $KeytoolExe '-importcert' '-noprompt' '-trustcacerts' '-alias' 'netfree-ca' '-file' $NetFreeCertificate '-keystore' $PrivateTrustStore '-storepass' 'changeit'
+    if ($LASTEXITCODE -ne 0) {
+      throw 'Importing the NetFree certificate into the private JDK truststore failed.'
+    }
+    $TlsOptions = '-Djavax.net.ssl.trustStore="' + $PrivateTrustStore + '" -Djavax.net.ssl.trustStorePassword=changeit'
+    $env:JAVA_TOOL_OPTIONS = (@($env:JAVA_TOOL_OPTIONS, $TlsOptions) | Where-Object { $_ }) -join ' '
+  } else {
+    # Java can use the same trusted Windows roots as the browser.
+    # This does NOT disable TLS certificate verification.
+    Write-Host '[3/4] NetFree CA file not found; using Windows trusted root certificates...'
+    $TlsOptions = '-Djavax.net.ssl.trustStoreType=Windows-ROOT -Djavax.net.ssl.trustStore=NONE'
+    $env:JAVA_TOOL_OPTIONS = (@($env:JAVA_TOOL_OPTIONS, $TlsOptions) | Where-Object { $_ }) -join ' '
+  }
+
   Write-Host '[3/4] Building APK...'
   Push-Location -LiteralPath $Source
   try {
